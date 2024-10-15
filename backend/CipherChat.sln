@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CipherChat.Services", "Ciph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CipherChat.Data", "CipherChat.Data\CipherChat.Data.csproj", "{6F9B90B5-B135-4213-A396-B532BBCD85EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CipherChat.Ciphers", "CipherChat.Ciphers\CipherChat.Ciphers.csproj", "{56094550-CD06-4287-9230-AB1A34B758DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6F9B90B5-B135-4213-A396-B532BBCD85EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F9B90B5-B135-4213-A396-B532BBCD85EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F9B90B5-B135-4213-A396-B532BBCD85EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56094550-CD06-4287-9230-AB1A34B758DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56094550-CD06-4287-9230-AB1A34B758DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56094550-CD06-4287-9230-AB1A34B758DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56094550-CD06-4287-9230-AB1A34B758DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
