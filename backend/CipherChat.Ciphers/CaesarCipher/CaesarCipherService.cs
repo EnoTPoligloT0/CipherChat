@@ -1,54 +1,68 @@
 using System.Text;
 using CipherChat.Domain.Interfaces;
 
-namespace CipherChat.Ciphers.CaesarCipher;
-
-public class CaesarCipherService : ICipherService
+namespace CipherChat.Ciphers.CaesarCipher
 {
-    private readonly int _key;
-    
-    public CaesarCipherService(CaesarCipherSettings settings)
+    public class CaesarCipherService : ICipherService
     {
-        _key = settings.Key;
-    }
-    
-    public string Encrypt(string plainText)
-    {
-        // Implement the encryption logic here
-        StringBuilder encrypted = new StringBuilder();
-        foreach (char character in plainText)
+        public string Encrypt(string plainText, int shift, string language)
         {
-            if (char.IsLetter(character))
+            string alphabet = GetAlphabet(language);
+            StringBuilder encrypted = new StringBuilder();
+            foreach (char character in plainText)
             {
-                char offset = char.IsUpper(character) ? 'A' : 'a';
-                char encryptedChar = (char)((((character + _key) - offset) % 26) + offset);
-                encrypted.Append(encryptedChar);
-            }
-            else
-            {
-                encrypted.Append(character); // Non-letter characters are unchanged
-            }
-        }
-        return encrypted.ToString();
-    }
+                char targetChar = char.ToLower(character);
+                if (alphabet.Contains(targetChar))
+                {
+                    int alphabetIndex = alphabet.IndexOf(targetChar);
+                    // Shift character forward by shift positions
+                    int newCharIndex = (alphabetIndex + shift) % alphabet.Length;
+                    char encryptedChar = alphabet[newCharIndex];
 
-    public string Decrypt(string cipherText)
-    {
-        // Implement the decryption logic here
-        StringBuilder decrypted = new StringBuilder();
-        foreach (char character in cipherText)
-        {
-            if (char.IsLetter(character))
-            {
-                char offset = char.IsUpper(character) ? 'A' : 'a';
-                char decryptedChar = (char)((((character - _key) - offset + 26) % 26) + offset);
-                decrypted.Append(decryptedChar);
+                    // Preserve the case of the original character
+                    encrypted.Append(char.IsUpper(character) ? char.ToUpper(encryptedChar) : encryptedChar);
+                }
+                else
+                {
+                    encrypted.Append(character); // Append unchanged characters
+                }
             }
-            else
-            {
-                decrypted.Append(character); // Non-letter characters are unchanged
-            }
+            return encrypted.ToString();
         }
-        return decrypted.ToString();
+
+        public string Decrypt(string cipherText, int shift, string language)
+        {
+            string alphabet = GetAlphabet(language);
+            StringBuilder decrypted = new StringBuilder();
+            foreach (char character in cipherText)
+            {
+                char targetChar = char.ToLower(character);
+                if (alphabet.Contains(targetChar))
+                {
+                    int alphabetIndex = alphabet.IndexOf(targetChar);
+                    // Adjust key for negative shift in decryption
+                    int newCharIndex = (alphabetIndex - shift + alphabet.Length) % alphabet.Length;
+                    char decryptedChar = alphabet[newCharIndex];
+
+                    // Preserve the case of the original character
+                    decrypted.Append(char.IsUpper(character) ? char.ToUpper(decryptedChar) : decryptedChar);
+                }
+                else
+                {
+                    decrypted.Append(character); // Append unchanged characters
+                }
+            }
+            return decrypted.ToString();
+        }
+
+        private string GetAlphabet(string language)
+        {
+            return language.ToUpper() switch
+            {
+                "POLISH" => CipherAlphabets.PolishAlphabet,
+                "ENGLISH" => CipherAlphabets.EnglishAlphabet,
+                _ => throw new ArgumentException("Unsupported language")
+            };
+        }
     }
 }
