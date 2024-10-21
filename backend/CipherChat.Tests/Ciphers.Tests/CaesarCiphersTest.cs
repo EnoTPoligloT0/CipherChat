@@ -6,35 +6,63 @@ namespace CipherChat.Tests.Ciphers.Tests;
 
 public class CaesarCipherTests
 {
-    private readonly CaesarCipherService _cipher;
-
-    public CaesarCipherTests()
+    [Theory]
+    [InlineData("HELLO", "KHOOR", 3, "ENGLISH")]
+    [InlineData("abc", "def", 3, "ENGLISH")]
+    [InlineData("XYZ", "ABC", 3, "ENGLISH")]
+    [InlineData("Hello, World!", "Khoor, Zruog!", 3, "ENGLISH")]
+    public void Encrypt_ShouldReturnExpectedCiphertext_English(string plainText, string expectedCiphertext,
+        int shift, string language)
     {
-        var settings = new CaesarCipherSettings { Key = 3 };
-        _cipher = new CaesarCipherService(settings);
+        var cipher = new CaesarCipherService();
+
+        var result = cipher.Encrypt(plainText, shift, language);
+
+        result.Should().Be(expectedCiphertext); // Compare exactly as-is.
     }
 
     [Theory]
-    [InlineData("HELLO", "KHOOR")]
-    [InlineData("abc", "def")]
-    [InlineData("XYZ", "ABC")]
-    [InlineData("Hello, World!", "Khoor, Zruog!")]
-    public void Encrypt_ShouldReturnExpectedCiphertext(string plainText, string expectedCiphertext)
+    [InlineData("KHOOR", "HELLO", 3, "ENGLISH")]
+    [InlineData("def", "abc", 3, "ENGLISH")]
+    [InlineData("ABC", "XYZ", 3, "ENGLISH")]
+    [InlineData("Khoor, Zruog!", "Hello, World!", 3, "ENGLISH")]
+    public void Decrypt_ShouldReturnExpectedPlaintext_English(string cipherText, string expectedPlaintext,
+        int shift, string language)
     {
-        var result = _cipher.Encrypt(plainText);
+        var cipher = new CaesarCipherService();
 
-        result.Should().Be(expectedCiphertext);
+        var result = cipher.Decrypt(cipherText, shift, language);
+
+        result.Should().Be(expectedPlaintext); 
     }
 
     [Theory]
-    [InlineData("KHOOR", "HELLO")]
-    [InlineData("def", "abc")]
-    [InlineData("ABC", "XYZ")]
-    [InlineData("Khoor, Zruog!", "Hello, World!")]
-    public void Decrypt_ShouldReturnExpectedPlaintext(string cipherText, string expectedPlaintext)
+    [InlineData("cześć", "fbixg", 5, "POLISH")] 
+    [InlineData("ąbćzac", "defąćę", 4, "POLISH")]
+    [InlineData("YZ", "AĄ", 4, "POLISH")] 
+    public void Encrypt_ShouldReturnExpectedCiphertext_Polish(string plainText, string expectedCiphertext,
+        int shift, string language)
     {
-        var result = _cipher.Decrypt(cipherText);
+        var cipher = new CaesarCipherService();
 
-        result.Should().Be(expectedPlaintext);
+        var result = cipher.Encrypt(plainText, shift, language);
+
+        result.Should().Be(expectedCiphertext); // Compare exactly as-is.
     }
+
+    [Theory]
+    [InlineData("fbixg", "cześć", 5, "POLISH")]
+    [InlineData("defąćę", "ąbćzac", 4, "POLISH")] 
+    [InlineData("AĄ", "YZ", 4, "POLISH")] 
+    public void Decrypt_ShouldReturnExpectedPlaintext_Polish(string cipherText, string expectedPlaintext,
+        int shift, string language)
+    {
+        var cipher = new CaesarCipherService();
+
+        var result = cipher.Decrypt(cipherText, shift, language);
+
+        result.Should().Be(expectedPlaintext); 
+    }
+    
+    
 }
