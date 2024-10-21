@@ -7,62 +7,39 @@ namespace CipherChat.Ciphers.CaesarCipher
     {
         public string Encrypt(string plainText, int shift, string language)
         {
-            string alphabet = GetAlphabet(language);
-            StringBuilder encrypted = new StringBuilder();
-            foreach (char character in plainText)
-            {
-                char targetChar = char.ToLower(character);
-                if (alphabet.Contains(targetChar))
-                {
-                    int alphabetIndex = alphabet.IndexOf(targetChar);
-                    // Shift character forward by shift positions
-                    int newCharIndex = (alphabetIndex + shift) % alphabet.Length;
-                    char encryptedChar = alphabet[newCharIndex];
-
-                    // Preserve the case of the original character
-                    encrypted.Append(char.IsUpper(character) ? char.ToUpper(encryptedChar) : encryptedChar);
-                }
-                else
-                {
-                    encrypted.Append(character); // Append unchanged characters
-                }
-            }
-            return encrypted.ToString();
+            string alphabet = AlphabetProvider.GetAlphabet(language);
+            return ProcessText(plainText, shift, alphabet, true);
         }
 
         public string Decrypt(string cipherText, int shift, string language)
         {
-            string alphabet = GetAlphabet(language);
-            StringBuilder decrypted = new StringBuilder();
-            foreach (char character in cipherText)
-            {
-                char targetChar = char.ToLower(character);
-                if (alphabet.Contains(targetChar))
-                {
-                    int alphabetIndex = alphabet.IndexOf(targetChar);
-                    // Adjust key for negative shift in decryption
-                    int newCharIndex = (alphabetIndex - shift + alphabet.Length) % alphabet.Length;
-                    char decryptedChar = alphabet[newCharIndex];
-
-                    // Preserve the case of the original character
-                    decrypted.Append(char.IsUpper(character) ? char.ToUpper(decryptedChar) : decryptedChar);
-                }
-                else
-                {
-                    decrypted.Append(character); // Append unchanged characters
-                }
-            }
-            return decrypted.ToString();
+            string alphabet = AlphabetProvider.GetAlphabet(language);
+            return ProcessText(cipherText, shift, alphabet, false);
         }
 
-        private string GetAlphabet(string language)
+        private string ProcessText(string text, int shift, string alphabet, bool isEncryption)
         {
-            return language.ToUpper() switch
+            StringBuilder result = new StringBuilder();
+            foreach (char character in text)
             {
-                "POLISH" => CipherAlphabets.PolishAlphabet,
-                "ENGLISH" => CipherAlphabets.EnglishAlphabet,
-                _ => throw new ArgumentException("Unsupported language")
-            };
+                result.Append(ProcessCharacter(character, shift, alphabet, isEncryption));
+            }
+            return result.ToString();
+        }
+
+        private char ProcessCharacter(char character, int shift, string alphabet, bool isEncryption)
+        {
+            char targetChar = char.ToLower(character);
+            if (alphabet.Contains(targetChar))
+            {
+                int alphabetIndex = alphabet.IndexOf(targetChar);
+                int shiftAmount = isEncryption ? shift : -shift;
+                int newCharIndex = (alphabetIndex + shiftAmount + alphabet.Length) % alphabet.Length;
+                char resultChar = alphabet[newCharIndex];
+
+                return char.IsUpper(character) ? char.ToUpper(resultChar) : resultChar;
+            }
+            return character;
         }
     }
 }
