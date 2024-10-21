@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CipherChat.Services\CipherChat.Services.csproj" />
+    </ItemGroup>
+
 </Project>
