@@ -9,8 +9,8 @@ namespace CipherChat.Ciphers
         {
             return language.ToUpper() switch
             {
-                "POLISH" => PolishAlphabet,
-                "ENGLISH" => EnglishAlphabet,
+                "PL" => PolishAlphabet,
+                "EN" => EnglishAlphabet,
                 _ => throw new ArgumentException("Unsupported language")
             };
         }
