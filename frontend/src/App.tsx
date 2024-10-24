@@ -1,13 +1,12 @@
-import WaitingRoom from "./components/WaitingRoom.tsx";
-
+import WaitingRoom from './components/WaitingRoom';
 
 function App() {
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-700">
-      <WaitingRoom/>
-    </div>
-  )
+    return (
+        <div className="flex items-center justify-center min-h-screen bg-background-gray text-teal-dark">
+            <WaitingRoom />
+        </div>
+    );
 }
 
-export default App
+export default App;
