@@ -1,6 +1,10 @@
 using CipherChat.API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddStackExchangeRedisCache(
+    options => options.Configuration = builder.Configuration.GetConnectionString("Redis"));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -11,6 +15,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials();                
     });
 });
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();
