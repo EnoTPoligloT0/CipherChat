@@ -5,14 +5,16 @@ namespace CipherChat.Ciphers.CaesarCipher
 {
     public class CaesarCipherService : ICipherService
     {
-        public string Encrypt(string plainText, int shift, string language)
+        public string Encrypt(string plainText, string key, string language)
         {
+            int shift = Convert.ToInt32(key); 
             string alphabet = AlphabetProvider.GetAlphabet(language);
             return ProcessText(plainText, shift, alphabet, true);
         }
 
-        public string Decrypt(string cipherText, int shift, string language)
+        public string Decrypt(string cipherText, string key, string language)
         {
+            int shift = Convert.ToInt32(key); 
             string alphabet = AlphabetProvider.GetAlphabet(language);
             return ProcessText(cipherText, shift, alphabet, false);
         }
