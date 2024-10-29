@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using CipherChat.Domain.Interfaces;
 
 namespace CipherChat.Ciphers.VigenereCipher
