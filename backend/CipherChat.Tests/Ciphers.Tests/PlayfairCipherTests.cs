@@ -5,6 +5,13 @@ namespace CipherChat.Tests.Ciphers.Tests;
 
  public class PlayfairCipherTests
     {
+        private readonly PlayfairCipherService _cipher;
+
+        public PlayfairCipherTests()
+        {
+            _cipher = new PlayfairCipherService();
+        }
+        
         [Theory]
         [InlineData("hello", "keyword", "EN", "gyqsco")]
         [InlineData("world", "keyword", "EN", "okfsct")]
@@ -13,7 +20,8 @@ namespace CipherChat.Tests.Ciphers.Tests;
         [InlineData("cień", "słowo", "PL", "dgdó")]
         public void Encrypt_ShouldEncryptPlaintextCorrectly(string plaintext, string keyword, string language, string expected)
         {
-            var result = PlayfairCipher.Encrypt(plaintext, keyword, language);
+            var result = _cipher.Encrypt(plaintext, keyword, language);
+
             result.Should().Be(expected);
         }
 
@@ -24,7 +32,7 @@ namespace CipherChat.Tests.Ciphers.Tests;
         [InlineData("dgdó", "słowo", "PL", "cień")]
         public void Decrypt_ShouldDecryptCiphertextCorrectly(string ciphertext, string keyword, string language, string expected)
         {
-            var result = PlayfairCipher.Decrypt(ciphertext, keyword, language);
+            var result = _cipher.Decrypt(ciphertext, keyword, language);
             result.Should().Be(expected);
         }
 
@@ -34,7 +42,7 @@ namespace CipherChat.Tests.Ciphers.Tests;
         public void CreateMatrix_ShouldContainDistinctCharacters(string keyword, string language)
         {
             var alphabet = AlphabetProvider.GetAlphabet(language);
-            var matrix = PlayfairCipher.CreateMatrix(keyword, alphabet);
+            var matrix = PlayfairCipherService.CreateMatrix(keyword, alphabet);
             
             var elements = matrix.Cast<char>().ToArray();
             elements.Should().OnlyHaveUniqueItems();
@@ -52,7 +60,7 @@ namespace CipherChat.Tests.Ciphers.Tests;
         [Fact]
         public void Encrypt_ShouldThrowException_ForUnsupportedLanguage()
         {
-            Action act = () => PlayfairCipher.Encrypt("hello", "keyword", "DE");
+            Action act = () => _cipher.Encrypt("hello", "keyword", "DE");
             act.Should().Throw<ArgumentException>().WithMessage("Unsupported language");
         }
     }
