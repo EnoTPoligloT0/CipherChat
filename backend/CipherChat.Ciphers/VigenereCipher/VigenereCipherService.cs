@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Text;
+using CipherChat.Domain.Interfaces;
 
 namespace CipherChat.Ciphers.VigenereCipher
 {
-    public class VigenereCipherService
+    public class VigenereCipherService : ICipherService
     {
-        private readonly string _alphabet;
-        
-        public VigenereCipherService(string language)
+        private string _alphabet;
+
+        private void SetAlphabet(string language)
         {
             _alphabet = AlphabetProvider.GetAlphabet(language);
         }
 
-        public string Encrypt(string plainText, string key)
+        public string Encrypt(string plainText, string key, string language)
         {
+            SetAlphabet(language);
             return ProcessText(plainText, key, true);
         }
 
-        public string Decrypt(string cipherText, string key)
+        public string Decrypt(string cipherText, string key, string language)
         {
+            SetAlphabet(language);
             return ProcessText(cipherText, key, false);
         }
 
@@ -54,6 +57,5 @@ namespace CipherChat.Ciphers.VigenereCipher
 
             return result.ToString();
         }
-
     }
 }
