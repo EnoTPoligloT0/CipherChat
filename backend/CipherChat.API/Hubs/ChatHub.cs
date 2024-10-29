@@ -21,7 +21,7 @@ public class ChatHub : Hub<IChatClient>
 
         var stringConnection = JsonSerializer.Serialize(connection);
 
-        _cache.SetStringAsync(Context.ConnectionId, stringConnection);
+        await _cache.SetStringAsync(Context.ConnectionId, stringConnection);
 
         await Clients
             .Group(connection.ChatRoom)

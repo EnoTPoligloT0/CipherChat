@@ -1,6 +1,5 @@
 using CipherChat.Ciphers.CaesarCipher;
 using FluentAssertions;
-using Xunit;
 
 namespace CipherChat.Tests.Ciphers.Tests;
 

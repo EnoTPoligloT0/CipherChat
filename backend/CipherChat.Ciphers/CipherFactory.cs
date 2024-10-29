@@ -1,4 +1,5 @@
 using CipherChat.Ciphers.CaesarCipher;
+using CipherChat.Ciphers.PlayfairCipher;
 using CipherChat.Ciphers.PolibiusCipher;
 using CipherChat.Ciphers.VigenereCipher;
 using CipherChat.Domain.Interfaces;
