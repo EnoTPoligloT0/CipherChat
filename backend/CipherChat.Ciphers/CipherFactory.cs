@@ -2,6 +2,7 @@ using CipherChat.Ciphers.CaesarCipher;
 using CipherChat.Ciphers.PolibiusCipher;
 using CipherChat.Ciphers.VigenereCipher;
 using CipherChat.Domain.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CipherChat.Ciphers;
 
