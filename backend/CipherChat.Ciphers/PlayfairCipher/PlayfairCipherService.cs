@@ -1,21 +1,22 @@
 using System.Text;
+using CipherChat.Domain.Interfaces;
 
 namespace CipherChat.Ciphers
 {
-    public class PlayfairCipher
+    public class PlayfairCipherService : ICipherService
     {
-        public static string Encrypt(string plaintext, string keyword, string language)
+        public string Encrypt(string plainText, string key, string language)
         {
             var alphabet = AlphabetProvider.GetAlphabet(language);
-            var matrix = CreateMatrix(keyword, alphabet);
-            return ProcessText(plaintext, matrix, true);
+            var matrix = CreateMatrix(key, alphabet);
+            return ProcessText(plainText, matrix, true);
         }
 
-        public static string Decrypt(string ciphertext, string keyword, string language)
+        public string Decrypt(string cipherText, string key, string language)
         {
             var alphabet = AlphabetProvider.GetAlphabet(language);
-            var matrix = CreateMatrix(keyword, alphabet);
-            string decryptedText = ProcessText(ciphertext, matrix, false);
+            var matrix = CreateMatrix(key, alphabet);
+            string decryptedText = ProcessText(cipherText, matrix, false);
             return RemoveTrailingPadding(decryptedText);
         }
 

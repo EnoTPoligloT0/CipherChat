@@ -14,13 +14,10 @@ namespace CipherChat.Tests.Ciphers.Tests
         [InlineData("h3llo!", "233323235!", "EN")] 
         public void Encrypt_Should_EncryptPlainTextToCipherText(string plainText, string expectedCipherText, string language)
         {
-            // Arrange
             var cipherService = new PolibiusCipherService(language);
 
-            // Act
-            string encrypted = cipherService.Encrypt(plainText, 0, language);
+            string encrypted = cipherService.Encrypt(plainText, "0", language);
 
-            // Assert
             encrypted.Should().Be(expectedCipherText, because: $"Plaintext: '{plainText}' Language: {language} ");
         }
 
@@ -32,13 +29,10 @@ namespace CipherChat.Tests.Ciphers.Tests
         [InlineData("131145", "cat", "EN")]
         public void Decrypt_Should_DecryptCipherTextToPlainText(string cipherText, string expectedPlainText, string language)
         {
-            // Arrange
             var cipherService = new PolibiusCipherService(language);
 
-            // Act
-            string decrypted = cipherService.Decrypt(cipherText, 0, language);
+            string decrypted = cipherService.Decrypt(cipherText, "0", language);
 
-            // Assert
             decrypted.Should().Be(expectedPlainText, because: $"CipherText: '{cipherText}' should map to Plaintext: '{expectedPlainText}' language {language}.");
         }
 
@@ -47,10 +41,8 @@ namespace CipherChat.Tests.Ciphers.Tests
         [InlineData("", "Unsupported language")]
         public void GetAlphabetGrid_Should_ThrowArgumentException_ForUnsupportedLanguage(string language, string expectedMessage)
         {
-            // Arrange & Act
             Action act = () => new PolibiusCipherService(language);
 
-            // Assert
             act.Should().Throw<ArgumentException>()
                 .WithMessage(expectedMessage);
         }
