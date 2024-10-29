@@ -6,7 +6,7 @@ public static class PolibiusAlphabetProvider
     {
         return language.ToUpper() switch
         {
-            "PL" => new string[][]
+            "PL" => new[]
             {
                 new[] { "a", "ą", "b", "c", "ć" },
                 new[] { "d", "e", "ę", "f", "g" },
@@ -16,7 +16,7 @@ public static class PolibiusAlphabetProvider
                 new[] { "t", "u", "w", "y", "z" },
                 new[] { "ź", "ż" }  
             },
-            "EN" => new string[][]
+            "EN" => new[]
             {
                 new[] { "a", "b", "c", "d", "e" },
                 new[] { "f", "g", "h", "i", "j" },
