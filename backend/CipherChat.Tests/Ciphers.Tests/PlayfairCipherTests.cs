@@ -1,4 +1,5 @@
 using CipherChat.Ciphers;
+using CipherChat.Ciphers.PlayfairCipher;
 using FluentAssertions;
 
 namespace CipherChat.Tests.Ciphers.Tests;

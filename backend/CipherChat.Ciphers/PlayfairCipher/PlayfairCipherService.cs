@@ -1,7 +1,7 @@
 using System.Text;
 using CipherChat.Domain.Interfaces;
 
-namespace CipherChat.Ciphers
+namespace CipherChat.Ciphers.PlayfairCipher
 {
     public class PlayfairCipherService : ICipherService
     {
