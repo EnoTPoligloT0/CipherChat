@@ -8,21 +8,21 @@ public static class PolibiusAlphabetProvider
         {
             "PL" => new[]
             {
-                new[] { "a", "ą", "b", "c", "ć" },
-                new[] { "d", "e", "ę", "f", "g" },
-                new[] { "h", "i", "j", "k", "l" },
-                new[] { "ł", "m", "n", "ń", "o" },
-                new[] { "ó", "p", "r", "s", "ś" },
-                new[] { "t", "u", "w", "y", "z" },
+                ["a", "ą", "b", "c", "ć"],
+                ["d", "e", "ę", "f", "g"],
+                ["h", "i", "j", "k", "l"],
+                ["ł", "m", "n", "ń", "o"],
+                ["ó", "p", "r", "s", "ś"],
+                ["t", "u", "w", "y", "z"],
                 new[] { "ź", "ż" }  
             },
             "EN" => new[]
             {
-                new[] { "a", "b", "c", "d", "e" },
-                new[] { "f", "g", "h", "i", "j" },
-                new[] { "k", "l", "m", "n", "o" },
-                new[] { "p", "q", "r", "s", "t" },
-                new[] { "u", "v", "w", "x", "y" },
+                ["a", "b", "c", "d", "e"],
+                ["f", "g", "h", "i", "j"],
+                ["k", "l", "m", "n", "o"],
+                ["p", "q", "r", "s", "t"],
+                ["u", "v", "w", "x", "y"],
                 new[] { "z" }
             },
             _ => throw new ArgumentException("Unsupported language")
