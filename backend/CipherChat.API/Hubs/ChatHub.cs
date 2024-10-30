@@ -17,19 +17,9 @@ public class ChatHub : Hub<IChatClient>
 
     public async Task JoinChat(UserConnection connection)
     {
-        if (connection == null)
+        if (connection == null || string.IsNullOrEmpty(connection.ChatRoom))
         {
-            throw new ArgumentNullException(nameof(connection), "UserConnection cannot be null.");
-        }
-
-        if (string.IsNullOrEmpty(connection.ChatRoom))
-        {
-            throw new ArgumentException("ChatRoom cannot be null or empty.", nameof(connection.ChatRoom));
-        }
-
-        if (Context == null)
-        {
-            throw new InvalidOperationException("Context is not set.");
+            throw new ArgumentNullException("Connection details are missing.");
         }
 
         await Groups.AddToGroupAsync(Context.ConnectionId, connection.ChatRoom);
@@ -44,43 +34,22 @@ public class ChatHub : Hub<IChatClient>
 
     public async Task SendMessage(string message)
     {
-        try
-        {
-            if (string.IsNullOrEmpty(message))
-            {
-                throw new ArgumentException("Message cannot be null or empty.", nameof(message));
-            }
-            var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
-            if (stringConnection == null)
-            {
-                throw new InvalidOperationException("User connection not found in cache.");
-            }
+        if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty");
 
-            var connection = JsonSerializer.Deserialize<UserConnection>(stringConnection);
-            if (connection == null)
-            {
-                throw new InvalidOperationException("Deserialization of UserConnection failed.");
-            }
+        var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
+        if (stringConnection == null) throw new InvalidOperationException("User connection not found in cache.");
 
-            if (string.IsNullOrEmpty(message))
-            {
-                throw new ArgumentException("Message cannot be null or empty.", nameof(message));
-            }
+        var connection = JsonSerializer.Deserialize<UserConnection>(stringConnection);
+        if (connection == null) throw new InvalidOperationException("Deserialization of UserConnection failed.");
 
-            await Clients
-                .Group(connection.ChatRoom)
-                .ReceiveMessage(connection.UserName, message);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error in SendMessage: {ex.Message}");
-            throw;
-        }
+        // Send message only to clients in the same chat room
+        await Clients.Group(connection.ChatRoom).ReceiveMessage(connection.UserName, message);
     }
+
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        var stringConnection = await _cache.GetAsync(Context.ConnectionId);
+        var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
 
         var connection = JsonSerializer.Deserialize<UserConnection>(stringConnection);
 
@@ -93,7 +62,6 @@ public class ChatHub : Hub<IChatClient>
                 .Group(connection.ChatRoom)
                 .ReceiveMessage("Admin", $"{connection.UserName} disconnected");
         }
-
 
         await base.OnDisconnectedAsync(exception);
     }
