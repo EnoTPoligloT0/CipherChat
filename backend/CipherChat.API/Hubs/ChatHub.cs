@@ -17,21 +17,39 @@ public class ChatHub : Hub<IChatClient>
 
     public async Task JoinChat(UserConnection connection)
     {
+        if (connection == null)
+        {
+            throw new ArgumentNullException(nameof(connection), "UserConnection cannot be null.");
+        }
+
+        if (string.IsNullOrEmpty(connection.ChatRoom))
+        {
+            throw new ArgumentException("ChatRoom cannot be null or empty.", nameof(connection.ChatRoom));
+        }
+
+        if (Context == null)
+        {
+            throw new InvalidOperationException("Context is not set.");
+        }
+
         await Groups.AddToGroupAsync(Context.ConnectionId, connection.ChatRoom);
 
         var stringConnection = JsonSerializer.Serialize(connection);
-
         await _cache.SetStringAsync(Context.ConnectionId, stringConnection);
 
         await Clients
             .Group(connection.ChatRoom)
-            .ReceiveMessage("Admin", $"{connection.UserName} is joined");
+            .ReceiveMessage("Admin", $"{connection.UserName} has joined.");
     }
 
     public async Task SendMessage(string message)
     {
         try
         {
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException("Message cannot be null or empty.", nameof(message));
+            }
             var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
             if (stringConnection == null)
             {
@@ -56,7 +74,7 @@ public class ChatHub : Hub<IChatClient>
         catch (Exception ex)
         {
             Console.WriteLine($"Error in SendMessage: {ex.Message}");
-            throw; 
+            throw;
         }
     }
 
@@ -70,13 +88,13 @@ public class ChatHub : Hub<IChatClient>
         {
             await _cache.RemoveAsync(Context.ConnectionId);
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, connection.ChatRoom);
-            
+
             await Clients
                 .Group(connection.ChatRoom)
                 .ReceiveMessage("Admin", $"{connection.UserName} disconnected");
         }
-        
-        
+
+
         await base.OnDisconnectedAsync(exception);
     }
 }
