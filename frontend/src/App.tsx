@@ -21,37 +21,39 @@ function App() {
             .withAutomaticReconnect()
             .build();
 
-        newConnection.on("ReceiveMessage", (userName: string, message: string) => {
-            console.log(userName);
-            console.log(message);
-            setMessages(prevMessages => [...prevMessages, { userName, message }]);
+        newConnection.on("ReceiveMessage", (receivedUserName: string, receivedMessage: string) => {
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { userName: receivedUserName, message: receivedMessage }
+            ]);
         });
 
         try {
             await newConnection.start();
             await newConnection.invoke("JoinChat", { userName, chatRoom: room });
-            console.log(newConnection);
             setConnection(newConnection);
             setChatRoom(room);
         } catch (error) {
-            console.log(error);
+            console.error("Error joining chat:", error);
         }
     };
 
-    const sendMessage = (message:string) => {
-        if (message.trim() === "") {
-            return; // Prevent sending empty messages
+    const sendMessage = (message: string) => {
+        if (message.trim() !== "" && connection) {
+            connection.invoke("SendMessage", message)
+                .catch(err => console.error("SendMessage error:", err));
         }
-        connection?.invoke("SendMessage", message)
-            .catch(err => console.error(err)); // Catch errors from invoking the method
     };
+
 
     const closeChat = () => {
         if (connection) {
             connection.stop();
             setConnection(null);
+            setMessages([]); // Clear messages when leaving the chat
         }
     };
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-background-gray text-teal-dark">
