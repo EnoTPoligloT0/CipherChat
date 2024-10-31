@@ -15,6 +15,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\CipherChat.Ciphers\CipherChat.Ciphers.csproj" />
       <ProjectReference Include="..\CipherChat.Services\CipherChat.Services.csproj" />
     </ItemGroup>
     
