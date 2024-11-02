@@ -16,7 +16,7 @@ public class ChatExtension
         services.AddScoped<PlayfairCipherService>();
         services.AddScoped<PolibiusCipherService>();
         
-        services.AddSingleton<ICipherFactory, CipherFactory>();
+        services.AddScoped<ICipherFactory, CipherFactory>();
     
         services.AddSignalR();
     }
