@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using CipherChat.API.Models;
+using CipherChat.Ciphers;
 using CipherChat.Domain.Interfaces;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -9,10 +10,12 @@ namespace CipherChat.API.Hubs;
 public class ChatHub : Hub<IChatClient>
 {
     private readonly IDistributedCache _cache;
+    private readonly IServiceProvider _serviceProvider;
 
-    public ChatHub(IDistributedCache cache)
+    public ChatHub(IDistributedCache cache, IServiceProvider serviceProvider)
     {
         _cache = cache;
+        _serviceProvider = serviceProvider;
     }
 
     public async Task JoinChat(UserConnection connection)
@@ -32,20 +35,40 @@ public class ChatHub : Hub<IChatClient>
             .ReceiveMessage("Admin", $"{connection.UserName} has joined.");
     }
 
-    public async Task SendMessage(string message)
+
+
+    public async Task SendMessage(string message, string cipherType = null, string language = null, string key = null)
     {
-        if (string.IsNullOrEmpty(message)) throw new ArgumentException("Message cannot be empty");
+        if (string.IsNullOrEmpty(message))
+            throw new ArgumentException("Message cannot be empty", nameof(message));
 
         var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
-        if (stringConnection == null) throw new InvalidOperationException("User connection not found in cache.");
+        if (stringConnection == null)
+            throw new InvalidOperationException("User connection not found in cache.");
 
         var connection = JsonSerializer.Deserialize<UserConnection>(stringConnection);
-        if (connection == null) throw new InvalidOperationException("Deserialization of UserConnection failed.");
+        if (connection == null)
+            throw new InvalidOperationException("Deserialization of UserConnection failed.");
 
-        // Send message only to clients in the same chat room
-        await Clients.Group(connection.ChatRoom).ReceiveMessage(connection.UserName, message);
+        string finalMessage;
+
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            var cipherFactory = scope.ServiceProvider.GetRequiredService<ICipherFactory>();
+
+            if (!string.IsNullOrEmpty(cipherType) && !string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(language))
+            {
+                var cipherService = cipherFactory.GetCipherService(cipherType);
+                finalMessage = cipherService.Encrypt(message, key, language);
+            }
+            else
+            {
+                finalMessage = message;
+            }
+        }
+
+        await Clients.Group(connection.ChatRoom).ReceiveMessage(connection.UserName, finalMessage);
     }
-
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
