@@ -1,6 +1,6 @@
 import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 import WaitingRoom from './components/WaitingRoom';
-import Chat from "./components/Chat.jsx";
+import Chat from "./components/Chat";
 import { useState } from "react";
 
 interface Message {
@@ -15,9 +15,7 @@ function App() {
 
     const joinChat = async (userName: string, room: string) => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl("http://localhost:5012/chat", {
-                withCredentials: true
-            })
+            .withUrl("http://localhost:5012/chat", { withCredentials: true })
             .withAutomaticReconnect()
             .build();
 
@@ -38,22 +36,20 @@ function App() {
         }
     };
 
-    const sendMessage = (message: string) => {
+    const sendMessage = (message: string, cipherType: string = "", language: string = "", key: string = "") => {
         if (message.trim() !== "" && connection) {
-            connection.invoke("SendMessage", message)
+            connection.invoke("SendMessage", message, cipherType, language, key)
                 .catch(err => console.error("SendMessage error:", err));
         }
     };
-
 
     const closeChat = () => {
         if (connection) {
             connection.stop();
             setConnection(null);
-            setMessages([]); // Clear messages when leaving the chat
+            setMessages([]);
         }
     };
-
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-background-gray text-teal-dark">
