@@ -16,17 +16,19 @@ namespace CipherChat.Tests.ChatHub.Tests
         private readonly API.Hubs.ChatHub _chatHub;
         private readonly Mock<HubCallerContext> _contextMock;
         private readonly Mock<IGroupManager> _groupManagerMock;
+        private readonly Mock<ICipherFactory> _cipherFactoryMock;
 
-        public ChatHubTests()
+        public ChatHubTests(Mock<ICipherFactory> cipherFactoryMock)
         {
             _cacheMock = new Mock<IDistributedCache>();
             _clientsMock = new Mock<IHubCallerClients<IChatClient>>();
             _clientMock = new Mock<IChatClient>();
             _contextMock = new Mock<HubCallerContext>();
             _groupManagerMock = new Mock<IGroupManager>();
+            _cipherFactoryMock = new Mock<ICipherFactory>();
 
             _contextMock.Setup(c => c.ConnectionId).Returns("connection-id");
-            _chatHub = new API.Hubs.ChatHub(_cacheMock.Object)
+            _chatHub = new API.Hubs.ChatHub(_cacheMock.Object, _cipherFactoryMock.Object)
             {
                 Clients = _clientsMock.Object,
                 Context = _contextMock.Object,
