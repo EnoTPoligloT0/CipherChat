@@ -7,7 +7,7 @@ namespace CipherChat.Ciphers.PolibiusCipher
     {
         private readonly string[][] _alphabetGrid;
 
-        public PolibiusCipherService(string language)
+        public PolibiusCipherService(string language = "EN")
         {
             _alphabetGrid = PolibiusAlphabetProvider.GetAlphabetGrid(language);
         }

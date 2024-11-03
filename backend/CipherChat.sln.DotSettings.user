@@ -2,16 +2,11 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AAssertionScope_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003F37723644f88193ca1742b082d8f64ec12830d95db0603053b5143a9a5ee8f3b_003FAssertionScope_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AXUnit2TestFramework_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003Fc62dbcc4ba2718769223d2edcbb462defa1d97c8f2ef066639d41ddd521e_003FXUnit2TestFramework_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AXunitException_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003F_002Econfig_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003F3b0b689d9608fdb6058eb73cb5438c4faedca8b467ebf8c5ddf58c234031_003FXunitException_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=61a6cf94_002Dadfe_002D4beb_002D8861_002Da3e088bcc7ac/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=34bdfdac_002D4c0a_002D47e7_002Daeed_002D63692649fb12/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=85efc39f_002D44b6_002D409b_002D9d2b_002Dd86c67ccc200/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CaesarCipherServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::C669B718-597A-473E-9DC7-B8B716EC4327::net8.0::CipherChat.Tests.Ciphers.Tests.CaesarCipherTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::C669B718-597A-473E-9DC7-B8B716EC4327::net8.0::CipherChat.Tests.Ciphers.Tests.PolibiusCipherTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::C669B718-597A-473E-9DC7-B8B716EC4327::net8.0::CipherChat.Tests.Ciphers.Tests.PlayfairCipherTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	
 	</wpf:ResourceDictionary>
