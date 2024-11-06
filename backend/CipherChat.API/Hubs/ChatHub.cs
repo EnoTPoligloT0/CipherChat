@@ -70,6 +70,31 @@ public class ChatHub : Hub<IChatClient>
         await Clients.Group(connection.ChatRoom).ReceiveMessage(connection.UserName, finalMessage);
     }
 
+    public async Task<string> DecryptMessage(string cipherText, string cipherType, string language, string key)
+    {
+        if (string.IsNullOrEmpty(cipherText))
+            throw new ArgumentException("Cipher text cannot be empty", nameof(cipherText));
+
+        if (string.IsNullOrEmpty(cipherType) || string.IsNullOrEmpty(key) || string.IsNullOrEmpty(language))
+            throw new ArgumentException("Cipher type, key, and language are required for decryption");
+
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var cipherFactory = scope.ServiceProvider.GetRequiredService<ICipherFactory>();
+
+            var cipherService = cipherFactory.GetCipherService(cipherType);
+            var decryptedMessage = cipherService.Decrypt(cipherText, key, language);
+
+            return decryptedMessage;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Decryption failed: {ex.Message}");
+            return $"Decryption error: {ex.Message}";  
+        }
+    }
+
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
         var stringConnection = await _cache.GetStringAsync(Context.ConnectionId);
