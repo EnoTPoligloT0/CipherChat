@@ -13,22 +13,22 @@ import { motion } from "framer-motion";
 interface CipherOptionsModalProps {
     cipherType: string;
     language: string;
-    key: string;
+    cipherKey: string;
     setCipherType: (cipher: string) => void;
     setLanguage: (lang: string) => void;
-    setKey: (key: string) => void;
+    setCipherKey: (key: string) => void;
     onSubmit: () => Promise<void>;
-    isOpen: boolean; // Accept isOpen as a prop
-    onClose: () => void; // Accept onClose as a prop
+    isOpen: boolean;
+    onClose: () => void;
 }
 
 const CipherOptionsModal: React.FC<CipherOptionsModalProps> = ({
                                                                    cipherType,
                                                                    language,
-                                                                   key,
+                                                                   cipherKey,
                                                                    setCipherType,
                                                                    setLanguage,
-                                                                   setKey,
+                                                                   setCipherKey,
                                                                    onSubmit,
                                                                    isOpen,
                                                                    onClose,
@@ -36,8 +36,8 @@ const CipherOptionsModal: React.FC<CipherOptionsModalProps> = ({
     const handleCipherSelection = (cipher: string) => {
         setCipherType(cipher);
         const newKey = cipher === "Polibius" ? "1" : "";
-        setKey(newKey); // Set key based on cipher type
-        console.log("Selected Cipher:", cipher, "Key:", newKey); // Debugging state
+        setCipherKey(newKey); // Set cipherKey based on cipher type
+        console.log("Selected Cipher:", cipher, "Key:", newKey);
     };
 
     return (
@@ -80,8 +80,8 @@ const CipherOptionsModal: React.FC<CipherOptionsModalProps> = ({
                     {cipherType !== "Polibius" && (
                         <Input
                             placeholder={`Enter key (${cipherType === "Caesar" ? "Numbers only" : "Letters only"})`}
-                            value={key}
-                            onChange={(e) => setKey(e.target.value)} // Update the key state
+                            value={cipherKey}
+                            onChange={(e) => setCipherKey(e.target.value)}
                             bg="gray.800"
                             color="white"
                             mt={4}
@@ -93,7 +93,7 @@ const CipherOptionsModal: React.FC<CipherOptionsModalProps> = ({
                         className="mt-4 bg-teal-dark text-cool-white"
                         onClick={() => {
                             onSubmit();
-                            onClose(); // Close modal after submission
+                            onClose();
                         }}
                     >
                         OK
