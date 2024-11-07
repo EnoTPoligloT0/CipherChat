@@ -15,11 +15,11 @@ export const Message: React.FC<MessageProps> = ({ messageInfo }) => {
 
     const [cipherType, setCipherType] = useState<string>('');
     const [language, setLanguage] = useState<string>('EN');
-    const [key, setKey] = useState<string>('');
+    const [cipherKey, setCipherKey] = useState<string>('');
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl("http://localhost:5012/chat") // Adjust URL as needed
+            .withUrl("http://localhost:5012/chat")
             .withAutomaticReconnect()
             .build();
 
@@ -53,19 +53,19 @@ export const Message: React.FC<MessageProps> = ({ messageInfo }) => {
                     messageInfo.message,
                     cipherType,
                     language,
-                    key
+                    cipherKey
                 );
                 setDecryptedMessage(decrypted);
-                setIsLocked(false); // Unlock after decryption
+                setIsLocked(false);
             } catch (err) {
                 console.error("Decryption failed:", err);
             } finally {
-                setIsModalOpen(false); // Close the modal after the decryption is done
+                setIsModalOpen(false);
             }
         } else {
             console.error("SignalR connection is not available.");
         }
-    }, [connection, cipherType, language, key, messageInfo.message]);
+    }, [connection, cipherType, language, cipherKey, messageInfo.message]);
 
     return (
         <div className="w-full flex items-start mb-4">
@@ -90,10 +90,10 @@ export const Message: React.FC<MessageProps> = ({ messageInfo }) => {
                 <CipherOptionsModal
                     cipherType={cipherType}
                     language={language}
-                    key={key}
+                    cipherKey={cipherKey}
                     setCipherType={setCipherType}
                     setLanguage={setLanguage}
-                    setKey={setKey}
+                    setCipherKey={setCipherKey}
                     onSubmit={handleModalSubmit}
                     onClose={() => setIsModalOpen(false)}
                     isOpen={isModalOpen}
