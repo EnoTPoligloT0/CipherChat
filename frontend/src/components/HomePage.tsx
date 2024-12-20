@@ -58,10 +58,30 @@ const HomePage: React.FC = () => {
 
             <SimpleGrid columns={[1, 2, 3]} spacing={8} mb={12}>
                 {[
-                    { name: "Caesar Cipher", description: "Shift letters by a fixed number.", icon: FaLock },
-                    { name: "Vigenère Cipher", description: "Use a keyword for encryption.", icon: FaKey },
-                    { name: "Playfair Cipher", description: "Encrypt digraphs (pairs of letters).", icon: FaComments },
-                    { name: "Polybius Cipher", description: "Map letters to grid coordinates.", icon: FaKey },
+                    {
+                        name: "Caesar Cipher",
+                        description: "Shift letters by a fixed number.",
+                        icon: FaLock,
+                        wikiUrl: "https://en.wikipedia.org/wiki/Caesar_cipher"
+                    },
+                    {
+                        name: "Vigenère Cipher",
+                        description: "Use a keyword for encryption.",
+                        icon: FaKey,
+                        wikiUrl: "https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher"
+                    },
+                    {
+                        name: "Playfair Cipher",
+                        description: "Encrypt digraphs (pairs of letters).",
+                        icon: FaComments,
+                        wikiUrl: "https://en.wikipedia.org/wiki/Playfair_cipher"
+                    },
+                    {
+                        name: "Polybius Cipher",
+                        description: "Map letters to grid coordinates.",
+                        icon: FaKey,
+                        wikiUrl: "https://en.wikipedia.org/wiki/Polybius_square"
+                    },
                 ].map((cipher, index) => (
                     <motion.div
                         key={index}
@@ -76,21 +96,23 @@ const HomePage: React.FC = () => {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
                         }}
                     >
-                        <Icon as={cipher.icon} w={10} h={10} mb={4} />
-                        <Heading size="md" mb={2}>
-                            {cipher.name}
-                        </Heading>
-                        <Text fontSize="sm" opacity={0.9}>
-                            {cipher.description}
-                        </Text>
+                        <a href={cipher.wikiUrl} target="_blank" rel="noopener noreferrer">
+                            <Icon as={cipher.icon} w={10} h={10} mb={4} />
+                            <Heading size="md" mb={2}>
+                                {cipher.name}
+                            </Heading>
+                            <Text fontSize="sm" opacity={0.9}>
+                                {cipher.description}
+                            </Text>
+                        </a>
                     </motion.div>
                 ))}
             </SimpleGrid>
 
             <Button
                 size="lg"
-                bg="purple.500"
-                _hover={{ bg: "purple.600" }}
+                bg="teal.500"
+                _hover={{ bg: "teal.600" }}
                 color="white"
                 onClick={redirectToChat}
                 shadow="md"
