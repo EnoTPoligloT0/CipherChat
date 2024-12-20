@@ -49,32 +49,41 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
     };
 
     return (
-        <div className="w-1/2 p-8 bg-gray-800 rounded shadow-lg">
+        <motion.div
+            className="flex flex-col h-screen w-screen p-4 bg-gray-800  shadow-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}>
+
             <div className="flex justify-between items-center mb-5">
-                <Heading size="lg" className="text-2xl font-bold text-cool-white">
+                <Heading size="lg" className="text-3xl font-bold text-cool-white">
                     {chatRoom}
                 </Heading>
                 <CloseButton onClick={closeChat} />
             </div>
 
-            <div className="flex flex-col overflow-auto h-96 gap-3 pb-3">
+            <div className="flex flex-col flex-grow gap-3 overflow-auto pb-3">
                 {messages.map((messageInfo, index) => (
                     <Message messageInfo={messageInfo} key={index} />
                 ))}
             </div>
 
-            <div className="flex gap-3 mt-5 items-center">
+            <div className="flex gap-3 items-center mt-5">
                 <Input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Write a message"
-                    className="bg-gray-700 text-cool-white flex-grow"
+                    className="bg-gray-700 text-cool-white flex-grow text-lg py-3 px-4 md:text-xl"
                 />
-                <Button className="bg-soft-teal text-cool-white" onClick={onSendMessage}>
+                <Button
+                    className="bg-soft-teal text-cool-white text-lg py-3 px-6 md:text-xl"
+                    onClick={onSendMessage}>
                     Send
                 </Button>
-                <Button className="bg-teal-dark text-cool-white" onClick={onOpen}>
+                <Button
+                    className="bg-teal-dark text-cool-white text-lg py-3 px-6 md:text-xl"
+                    onClick={onOpen}>
                     Cipher
                 </Button>
             </div>
@@ -135,7 +144,7 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                     </ModalBody>
                 </ModalContent>
             </Modal>
-        </div>
+        </motion.div>
     );
 };
 
