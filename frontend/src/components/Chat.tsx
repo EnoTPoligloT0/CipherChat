@@ -75,7 +75,7 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                     Send
                 </Button>
                 <Button className="bg-teal-dark text-cool-white" onClick={onOpen}>
-                    Cipher Options
+                    Cipher
                 </Button>
             </div>
 
@@ -129,8 +129,7 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                         )}
                         <Button
                             className="mt-4 bg-teal-dark text-cool-white"
-                            onClick={onClose}
-                        >
+                            onClick={onClose}>
                             OK
                         </Button>
                     </ModalBody>
