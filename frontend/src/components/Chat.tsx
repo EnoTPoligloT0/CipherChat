@@ -48,15 +48,22 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
         }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            e.preventDefault();  // Prevent form submission
+            onSendMessage();  // Send the message
+        }
+    };
+
     return (
         <motion.div
-            className="flex flex-col h-screen w-screen p-4 bg-gray-800  shadow-lg"
+            className="flex flex-col h-screen w-screen p-4 bg-gray-800 shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}>
 
             <div className="flex justify-between items-center mb-5">
-                <Heading size="lg" className="text-3xl font-bold text-cool-white">
+                <Heading size="lg" className="text-4xl font-bold text-cool-white">
                     {chatRoom}
                 </Heading>
                 <CloseButton onClick={closeChat} />
@@ -73,8 +80,9 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}  // Listen for Enter key press
                     placeholder="Write a message"
-                    className="bg-gray-700 text-cool-white flex-grow text-lg py-3 px-4 md:text-xl"
+                    className="bg-gray-700 text-cool-white flex-grow text-xl py-3 px-4 md:text-2xl"
                 />
                 <Button
                     className="bg-soft-teal text-cool-white text-lg py-3 px-6 md:text-xl"
@@ -104,8 +112,7 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                                     className={`flex items-center justify-center text-gray-800 ${
                                         cipher === cipherType ? 'bg-teal-dark' : 'bg-text-primary'
                                     } text-white rounded p-4 cursor-pointer transition-colors duration-200`}
-                                    onClick={() => handleCipherSelection(cipher)}
-                                >
+                                    onClick={() => handleCipherSelection(cipher)}>
                                     {cipher}
                                 </motion.div>
                             ))}
@@ -118,8 +125,7 @@ const Chat: React.FC<ChatProps> = ({ messages, chatRoom, sendMessage, closeChat 
                                     color={language === lang ? "white" : "gray.400"}
                                     _hover={{ bg: "" }}
                                     flex="1"
-                                    onClick={() => setLanguage(lang)}
-                                >
+                                    onClick={() => setLanguage(lang)}>
                                     {lang}
                                 </Button>
                             ))}
