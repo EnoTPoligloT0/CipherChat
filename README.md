@@ -2,10 +2,10 @@
 
 Welcome to the CipherChat project! This modern and feature-rich application allows users to interact in real-time, leveraging encryption features and a sleek design for secure and intuitive communication.
 
-![Demo](https://github.com/EnoTPoligloT0/CipherChat/blob/e71e802f675e93a68fa2edcdab0f22dae151889f/demo.gif)
----
-
-![App Screenshot](https://github.com/EnoTPoligloT0/CipherChat/blob/c705895f8410f0bfa884c41beea399d71fd06767/home-page.png)
+### 📱 Demo 
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/EnoTPoligloT0/CipherChat/blob/e71e802f675e93a68fa2edcdab0f22dae151889f/demo.gif" alt="Demo" style="max-width: 80%; height: auto;" />
+</div>
 ---
 
 ## Features
@@ -48,7 +48,7 @@ Welcome to the CipherChat project! This modern and feature-rich application allo
 ## Screenshots 
 
 ### Home Screen
-![Home Screen](./assets/home-screen.png)
+![Home Screen](https://github.com/EnoTPoligloT0/CipherChat/blob/c705895f8410f0bfa884c41beea399d71fd06767/home-page.png)
 
 ### Chat Room
 ![Chat Room](./assets/chat-room.png) 
