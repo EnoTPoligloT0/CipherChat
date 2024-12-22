@@ -35,7 +35,7 @@ Welcome to the CipherChat project! This modern and feature-rich application allo
 - **.NET 8 API**: For handling real-time chat.
 - **SignalR**: For real-time communication between client and server.
 - **Redis**: Cache handling, utilized as a backplane to scale out SignalR applications, ensuring efficient message distribution across servers. ([learn.microsoft.com](https://learn.microsoft.com/en-us/aspnet/core/signalr/redis-backplane?view=aspnetcore-9.0\&utm_source=chatgpt.com))
-- 
+- **Docker**: Used to containerize Redis, making it easier to deploy, scale, and manage.
 ## How to Use
 
 1. **Join a Chat Room**: Start by selecting or creating a chat room.
