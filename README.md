@@ -4,7 +4,7 @@ Welcome to the CipherChat project! This modern and feature-rich application allo
 
 ### 📱 Demo 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://github.com/EnoTPoligloT0/CipherChat/blob/e71e802f675e93a68fa2edcdab0f22dae151889f/demo.gif" alt="Demo" style="max-width: 80%; max-height: 400px; height: auto;" />
+  <img src="https://github.com/EnoTPoligloT0/CipherChat/blob/e71e802f675e93a68fa2edcdab0f22dae151889f/demo.gif" width="250" height="550"/>
 </div>
 ---
 
