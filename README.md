@@ -2,7 +2,11 @@
 
 Welcome to Cipher Chat – a secure and fun messaging platform where you can encrypt your messages with classic ciphers and share them with friends!
 
-### 📱 Demo 
+### 🔑 What is Cipher Chat?
+
+Ciphers are methods of encrypting messages to make them unreadable without the proper key or decryption method. Whether you're a cryptography enthusiast or just looking for a fun way to send secret messages, Cipher Chat has you covered!
+
+## 📱 Demo 
 <div style="display: flex; justify-content: center; align-items: center;">
   <img src="https://github.com/EnoTPoligloT0/CipherChat/blob/e71e802f675e93a68fa2edcdab0f22dae151889f/demo.gif" width="250" height="550"/>
 </div>
