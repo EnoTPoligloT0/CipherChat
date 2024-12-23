@@ -1,6 +1,6 @@
 # CipherChat 
 
-Welcome to the CipherChat project! This modern and feature-rich application allows users to interact in real-time, leveraging encryption features and a sleek design for secure and intuitive communication.
+Welcome to Cipher Chat – a secure and fun messaging platform where you can encrypt your messages with classic ciphers and share them with friends!
 
 ### 📱 Demo 
 <div style="display: flex; justify-content: center; align-items: center;">
