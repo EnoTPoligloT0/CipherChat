@@ -40,6 +40,13 @@ Ciphers are methods of encrypting messages to make them unreadable without the p
 - **SignalR**: For real-time communication between client and server.
 - **Redis**: Cache handling, utilized as a backplane to scale out SignalR applications, ensuring efficient message distribution across servers. ([learn.microsoft.com](https://learn.microsoft.com/en-us/aspnet/core/signalr/redis-backplane?view=aspnetcore-9.0\&utm_source=chatgpt.com))
 - **Docker**: Used to containerize Redis, making it easier to deploy, scale, and manage.
+
+## Ciphers
+1. **Caesar**: Shift letters by a fixed number.
+2. **Vigenère**: Use a keyword for encryption.
+3. **Playfair**: Encrypt digraphs (pairs of letters).
+4. **Polybius**:Map letters to grid coordinates.  
+
 ## How to Use
 
 1. **Join a Chat Room**: Start by selecting or creating a chat room.
